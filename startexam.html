@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Exam Proctoring System</title>
+    <link rel="stylesheet" href="style1.css">
+    <link rel="stylesheet" href="animations.css">
+    <style>
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        #loadingOverlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            color: #fff;
+            font-size: 1.5rem;
+            text-align: center;
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        
+        #loadingSpinner {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #0a84ff;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            margin-bottom: 20px;
+            animation: spin 3s linear infinite;
+        }
+        
+        .btn-primary {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary:after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.5);
+            opacity: 0;
+            border-radius: 100%;
+            transform: scale(1, 1) translate(-50%);
+            transform-origin: 50% 50%;
+        }
+        
+        @keyframes ripple {
+            0% {
+                transform: scale(0, 0);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(20, 20);
+                opacity: 0;
+            }
+        }
+        
+        .btn-primary:focus:not(:active)::after {
+            animation: ripple 1s ease-out;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container animated-fade-in">
+        <header>
+            <h1>Online Exam Proctoring</h1>
+            <p>Secure exam environment with AI monitoring</p>
+        </header>
+        
+        <main class="main-content">
+            <div class="exam-card">
+                <h2>Final Examination</h2>
+                <div class="exam-details">
+                    <p><strong>Duration:</strong> 90 minutes</p>
+                    <p><strong>Questions:</strong> 10</p>
+                    <p><strong>Requirements:</strong> Webcam & microphone</p>
+                </div>
+                <button id="startExamBtn" class="btn-primary">Start Exam</button>
+            </div>
+            
+            <div class="instructions">
+                <h3>Exam Rules:</h3>
+                <ul>
+                    <li>No external help allowed</li>
+                    <li>Keep your face visible to the camera</li>
+                    <li>Do not switch tabs or windows</li>
+                    <li>No mobile phones or other devices</li>
+                    <li>Malpractice will be reported</li>
+                </ul>
+            </div>
+        </main>
+    </div>
+    <div id="detectionStatus">Monitoring initialized</div>
+    <div id="proctorAlert" style="display: none;"></div>  
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay">
+        <div id="loadingSpinner"></div>
+        <div>Loading exam...</div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        document.getElementById('startExamBtn').addEventListener('click', function() {
+            // Show loading overlay
+            document.getElementById('loadingOverlay').style.display = 'flex';
+            
+            // Wait briefly before redirecting
+            setTimeout(function() {
+                window.location.href = 'exam.html';
+            }, 2000); // 2 seconds
+        });
+    </script>
+</body>
+</html>
